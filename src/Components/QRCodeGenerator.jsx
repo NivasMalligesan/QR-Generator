@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import QRCode from 'react-qr-code';
-import BG from '../assets/Bg.jpg';
+import BG from '../assets/BG.png'
 
 const QRCodeGenerator = () => {
     const [input, setInput] = useState('');
-    const [qrCode, setQrCode] = useState('https://pro-qr-generator.netlify.app/');
+    const [qrCode, setQrCode] = useState('https://nivas-portfolio-in.netlify.app/');
 
     // Handle QR Code generation based on input
     function handleGenerateQrCode(e) {
@@ -12,75 +12,66 @@ const QRCodeGenerator = () => {
         setQrCode(input); // Set QR code value
     }
 
-    // Function to trigger download of the QR code
-    function handleDownloadQRCode() {
-        const canvas = document.getElementById('qr-code-canvas');
-        if (canvas) {
-            const imageUrl = canvas.toDataURL('image/png'); // Get the data URL of the canvas
-            const a = document.createElement('a');
-            a.href = imageUrl;
-            a.download = 'qr-code.png'; // Set default filename for download
-            a.click(); // Simulate a click to trigger the download
-        }
-    }
-
     return (
-        <div className="bg-cover bg-center h-[350px]" style={{ backgroundImage: `url(${BG})` }}>
-            <div className='flex-col sm:flex justify-center items-center'>
-                <div className='p-10 text-center'>
-                    <h1 className='text-6xl sm:text-9xl font-inter font-bold mt-10 text-white'>
+        <div className="flex items-center justify-center backdrop-blur-3xl w-screen h-screen shadow-2xl " style={{ backgroundImage: `url(${BG})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+            <div className="flex flex-col items-center w-full max-w-4xl">
+                {/* Header Section */}
+                <div className="text-center mb-10">
+                    <h1 className="text-4xl sm:text-6xl font-bold text-white">
                         QR Code Generator
                     </h1>
-                    <h1 className='font-inter text-lg mt-5 px-10 text-white'>
+                    <p className="mt-4 text-lg text-white">
                         Free online static and dynamic QR Code generator for any use case. Create free QR Codes in three simple steps. Make a QR Code, customize it, and track it with a free forever plan.
-                    </h1>
+                    </p>
                 </div>
-                <div className='flex w-full justify-evenly items-start'>
-                    <form
-                        className="flex justify-center items-center w-2/4 mt-10"
-                        onSubmit={handleGenerateQrCode}
-                    >
-                        <input
-                            className="border w-full py-2 pl-3 pr-10 rounded-l-2xl border-slate-950"
-                            onChange={(e) => setInput(e.target.value)}
-                            type="text"
-                            name="qr-code"
-                            placeholder="Enter the link..."
-                            value={input}
-                        />
-                        <button
-                            disabled={!input.trim()}
-                            type="submit"
-                            className="border py-2 px-3 rounded-e-2xl"
-                        >
-                            Generate
-                        </button>
-                    </form>
-                    <div className='p-10 -translate-y-10 bg-white rounded-2xl shadow-2xl'>
+
+                {/* QR Code and Form Section */}
+                <div className="bg-white rounded-3xl shadow-xl p-8 sm:flex sm:justify-between sm:items-center w-full">
+                    <div>
+                        <h1 className='mb-8 text-center text-3xl font-bold'>Generate Your QR here</h1>
+                        <div className="">
+                            <form
+                                className="flex items-center"
+                                onSubmit={handleGenerateQrCode}
+                            >
+                                <input
+                                    className="border w-full py-2 pl-4 pr-10 rounded-l-2xl border-gray-300 focus:outline-none"
+                                    onChange={(e) => setInput(e.target.value)}
+                                    type="text"
+                                    name="qr-code"
+                                    placeholder="Enter the link..."
+                                    value={input}
+                                />
+                                <button
+                                    disabled={!input.trim()}
+                                    type="submit"
+                                    className="bg-neutral-800 text-white py-2 px-4 rounded-r-2xl "
+                                >
+                                    Generate
+                                </button>
+                            </form>
+                            <div className="mt-6">
+                                <p className="text-gray-600 font-medium">
+                                    Create your custom QR codes in seconds. Simply enter your link or text, and generate a scannable code to share instantly!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Input Form */}
+
+                    {/* QR Code Display */}
+                    <div className="mt-8 sm:mt-0 sm:ml-10 p-6 bg-gray-50 rounded-2xl shadow-xl flex items-center justify-center">
                         {qrCode && (
                             <QRCode
                                 id="qr-code-canvas"
                                 value={qrCode}
                                 size={200}
-                                bgColor='#fff'
+                                bgColor="#fff"
                             />
                         )}
                     </div>
                 </div>
-            </div>
-            <div className='w-1/2 ml-44 -translate-y-40'>
-                <p className='font-normal text-lg text-gray-600'>
-                    Create and download your custom QR codes in seconds. Simply enter your link or text, and generate a scannable code to share instantly!
-                </p>
-                {/* Download Button */}
-                {qrCode && (
-                    <button
-                        onClick={handleDownloadQRCode}
-                        className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
-                    >
-                        Download QR Code
-                    </button>
-                )}
             </div>
         </div>
     );
