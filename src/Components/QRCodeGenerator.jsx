@@ -6,17 +6,16 @@ const QRCodeGenerator = () => {
     const [input, setInput] = useState('');
     const [qrCode, setQrCode] = useState('https://nivas-portfolio-in.netlify.app/');
 
-    // Handle QR Code generation based on input
     function handleGenerateQrCode(e) {
-        e.preventDefault(); // Prevent page reload on form submission
-        setQrCode(input); // Set QR code value
+        e.preventDefault();
+        setQrCode(input || 'https://nivas-portfolio-in.netlify.app/');
     }
 
     return (
         <div
             className="flex items-center justify-center backdrop-blur-3xl w-screen h-screen shadow-2xl"
             style={{
-                backgroundImage: `url(${BG})`,
+                backgroundImage: `url(${BG})`, // Fixed template literal for background image
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}
@@ -35,7 +34,7 @@ const QRCodeGenerator = () => {
                 {/* QR Code and Form Section */}
                 <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center w-full">
                     {/* Input Form */}
-                    <div className="w-full sm:w-3/4 mb-6 sm:mb-0 sm:mr-10">
+                    <div className="w-full sm:w-3/4 mb-6 sm:mb-0 mr-10">
                         <h1 className="mb-4 text-center text-2xl font-bold">
                             Generate Your QR Here
                         </h1>
